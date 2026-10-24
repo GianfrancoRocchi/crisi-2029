@@ -4,165 +4,335 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10/28. La crisi sistemica del 2029</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2c2c2a; line-height: 1.6; }
-    
-    .container { display: flex; min-height: 100vh; }
-    
-    nav { 
-      width: 220px; 
-      background: #fff; 
-      border-right: 1px solid #e5e3dc; 
-      padding: 2rem 0; 
-      position: sticky; 
-      top: 0; 
-      height: 100vh; 
+    :root {
+      --text-primary: #1a1a1a;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --border: #e5e5e5;
+      --surface-light: #ffffff;
+      --surface-bg: #fafafa;
+      --accent: #0066cc;
+      --accent-light: #f0f4ff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+        --text-muted: #999999;
+        --border: #333333;
+        --surface-light: #1a1a1a;
+        --surface-bg: #0f0f0f;
+        --accent: #5fa3ff;
+        --accent-light: #1a3a66;
+      }
+    }
+
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--surface-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: var(--surface-light);
+      border-right: 1px solid var(--border);
+      padding: 2rem 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
       overflow-y: auto;
     }
-    
-    nav h1 { 
-      font-size: 14px; 
-      font-weight: 600; 
-      text-transform: uppercase; 
-      letter-spacing: 0.5px; 
-      padding: 0 1.5rem 1.5rem; 
-      color: #888780; 
+
+    nav h1 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-muted);
     }
-    
+
     nav button {
       display: block;
       width: 100%;
       text-align: left;
-      padding: 0.875rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       border: none;
       background: transparent;
       cursor: pointer;
       font-size: 14px;
-      color: #5f5e5a;
-      transition: all 0.2s;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+      font-weight: 400;
     }
-    
-    nav button:hover { background: #f1f0eb; color: #2c2c2a; }
-    nav button.active { background: #f1f0eb; color: #185fa5; font-weight: 500; border-left: 3px solid #185fa5; padding-left: calc(1.5rem - 3px); }
-    
-    main { 
-      flex: 1; 
-      padding: 3rem; 
-      overflow-y: auto; 
-      max-width: 1000px;
+
+    nav button:hover {
+      background: var(--accent-light);
+      color: var(--accent);
     }
-    
+
+    nav button.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+      border-left: 2px solid var(--accent);
+      padding-left: calc(1.5rem - 2px);
+    }
+
+    main {
+      padding: 3rem 4rem;
+      overflow-y: auto;
+      max-width: 900px;
+    }
+
     section { display: none; }
     section.active { display: block; }
-    
-    h1 { font-size: 32px; margin-bottom: 1rem; color: #2c2c2a; }
-    h2 { font-size: 22px; margin-top: 2.5rem; margin-bottom: 1rem; color: #2c2c2a; }
-    h3 { font-size: 18px; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #2c2c2a; font-weight: 500; }
-    p { margin-bottom: 1rem; color: #5f5e5a; }
-    
-    .subtitle { font-size: 18px; color: #888780; margin-bottom: 2rem; }
-    
-    .episode-card {
-      background: #fff;
-      border-left: 4px solid #185fa5;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 4px;
+
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      line-height: 1.2;
     }
-    
-    .episode-title { 
-      font-size: 16px; 
-      font-weight: 600; 
-      color: #185fa5; 
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .intro-box {
+      background: var(--surface-light);
+      padding: 2rem;
+      border-radius: 0;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .intro-box h3 {
+      margin-top: 0;
+    }
+
+    .episode-card {
+      background: var(--surface-light);
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+      border-radius: 0;
+      border: 1px solid var(--border);
+    }
+
+    .episode-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
       margin-bottom: 0.5rem;
     }
-    
+
     .episode-date {
       font-size: 13px;
-      color: #888780;
+      color: var(--text-muted);
       margin-bottom: 1rem;
     }
-    
-    .episode-desc { color: #5f5e5a; }
-    
+
+    .episode-desc {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    .episode-desc p {
+      margin-bottom: 0.75rem;
+    }
+
+    .episode-desc strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .song-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.15s ease;
+    }
+
+    .song-link:hover {
+      border-bottom-color: var(--accent);
+    }
+
     .theme-list {
       list-style: none;
       padding: 0;
     }
-    
+
     .theme-list li {
       padding: 1.25rem;
       margin: 0.75rem 0;
-      background: #f1f0eb;
-      border-left: 3px solid #639922;
-      border-radius: 2px;
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 0;
     }
-    
-    .theme-list strong { color: #2c2c2a; display: block; margin-bottom: 0.5rem; }
-    
+
+    .theme-list strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
     .financing-item {
-      background: #f1f0eb;
+      background: var(--surface-light);
       padding: 1.5rem;
       margin: 1rem 0;
-      border-radius: 4px;
-      border-left: 3px solid #a32d2d;
+      border-radius: 0;
+      border: 1px solid var(--border);
     }
-    
-    .financing-item strong { color: #2c2c2a; display: block; margin-bottom: 0.5rem; }
-    
+
+    .financing-item strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
     .table-wrapper {
       overflow-x: auto;
       margin: 1.5rem 0;
     }
-    
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 14px;
-      background: #fff;
+      background: var(--surface-light);
     }
-    
+
     th {
-      background: #f1f0eb;
+      background: transparent;
       padding: 1rem;
       text-align: left;
       font-weight: 600;
-      border-bottom: 1px solid #e5e3dc;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 13px;
     }
-    
+
     td {
       padding: 0.875rem 1rem;
-      border-bottom: 1px solid #e5e3dc;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
     }
-    
-    tr:hover { background: #faf9f6; }
-    
-    .intro-box {
-      background: #f1f0eb;
-      padding: 2rem;
-      border-radius: 4px;
-      margin: 2rem 0;
-      border-left: 4px solid #185fa5;
-    }
-    
+
+    tr:hover { background: var(--accent-light); }
+
     .season-header {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
-      color: #185fa5;
+      color: var(--accent);
       margin-top: 2.5rem;
       margin-bottom: 1.5rem;
     }
-    
-    @media (max-width: 768px) {
-      .container { flex-direction: column; }
-      nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #e5e3dc; padding: 1rem 0; }
-      nav h1 { padding: 0 1rem 1rem; }
-      nav button { padding: 0.75rem 1rem; }
-      main { padding: 1.5rem; }
-      h1 { font-size: 24px; }
+
+    .bibliography-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .bibliography-section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-transform: none;
+    }
+
+    .bib-item {
+      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .bib-item::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    .bib-item strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .bib-link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.15s ease;
+    }
+
+    .bib-link:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      nav { position: static; height: auto; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+      main { padding: 2rem; }
+      h1 { font-size: 28px; }
+      nav button { padding: 0.65rem 1.25rem; }
     }
   </style>
 </head>
@@ -178,222 +348,200 @@
       <button class="nav-btn" data-section="stagione2">Stagione 2</button>
       <button class="nav-btn" data-section="finanziamento">Finanziamento</button>
       <button class="nav-btn" data-section="calendario">Calendario storico</button>
+      <button class="nav-btn" data-section="bibliografia">Bibliografia</button>
     </nav>
-    
+
     <main>
       <section id="intro" class="active">
-        <h1>10/28. La crisi sistemica del 2029</h1>
-        <p class="subtitle">Un podcast in due stagioni su scenari di fragilità sistemica e le scelte che stiamo facendo</p>
-        
+        <h1>10/28</h1>
+        <p class="subtitle">La crisi sistemica del 2029</p>
+        <p style="margin-top: 1.5rem;">Un podcast in due stagioni su scenari di fragilità sistemica e le scelte che stiamo facendo</p>
+
         <div class="intro-box">
           <h3>Il concetto centrale</h3>
           <p>Giovedì 25 ottobre 2029, il Nasdaq crolla. A domenica 28 ottobre, un grande fornitore di infrastrutture di calcolo non riesce a rifinanziare le obbligazioni. Scattano i credit default swap. Da lì parte una crisi sistemica che ripercorre, a cento anni di distanza con le stesse date, gli eventi della Grande Depressione del 1929.</p>
           <p>Ma nulla di questo è finzione: tutte le premesse che portano a questo scenario descrivono scelte già compiute e tendenze già in atto. «10/28» traccia il punto di rottura, ponendo una questione ineludibile: può una società garantire la propria sopravvivenza delegando la sicurezza collettiva alla crescita infinita dei mercati?</p>
         </div>
-        
+
         <h2>Due formule possibili</h2>
-        <p><strong>Saggistica e divulgazione:</strong> Un approccio analitico e previsionale che discute scenari e fatti già riscontrabili oggi, con un taglio più riflettente. La conduzione affidata a una voce professionalmente autorevole.</p>
-        <p><strong>Narrativa:</strong> Storie di personaggi reali e immaginari dentro ecosistemi che collassano. La fantaeconomia, la parodia e la distopia mascherano le istituzioni protagoniste di oggi, lasciando libertà speculativa. Conduzione attoriale.</p>
+        <p><strong>Saggistica e divulgazione.</strong> Un approccio analitico e previsionale che discute scenari e fatti già riscontrabili oggi, con un taglio più riflettente. La conduzione affidata a una voce professionalmente autorevole.</p>
+        <p><strong>Narrativa.</strong> Storie di personaggi reali e immaginari dentro ecosistemi che collassano. La fantaeconomia, la parodia e la distopia mascherano le istituzioni protagoniste di oggi, lasciando libertà speculativa. Conduzione attoriale.</p>
         <p>Il rigore starebbe in entrambi i casi nella solidità delle tendenze di partenza e nella plausibilità dei passaggi che le collegano.</p>
       </section>
-      
+
       <section id="progetto">
         <h1>Il progetto</h1>
         <p>Negli ultimi mesi ho letto rapporti di istituzioni, analisi, articoli e opinioni su diversi fenomeni che stanno scuotendo il mondo. Mi interessa esplorare il modo in cui le fragilità del presente possono rafforzarsi a vicenda, e contribuire al dibattito sulle conseguenze delle scelte che stiamo facendo.</p>
         <p>Il podcast è un formato particolarmente adatto: colloca tra l'approfondimento e la divulgazione.</p>
-        
+
         <h2>Formato della serie</h2>
         <p>La serie è divisa in due stagioni. Gli stili cambiano da un episodio all'altro, ma una linea comune li tiene insieme. Alcuni personaggi attraversano più puntate e le loro storie talvolta si incrociano.</p>
-        <p>Ogni episodio dura 25-40 minuti, a seconda della formula scelta. Ciascuno si apre con una canzone che evoca il tema e gli dà il titolo.</p>
-        
+        <p>Ogni episodio dura 25–40 minuti, a seconda della formula scelta. Ciascuno si apre con una canzone che evoca il tema e gli dà il titolo.</p>
+
         <h2>Ecosistema multicanale</h2>
-        <p><strong>Newsletter:</strong> Articoli di approfondimento su Substack. Se la serie sceglie la chiave narrativa, questi articoli spiegano con approccio saggistico l'analisi dello scenario che ha fatto da base alla storia.</p>
-        <p><strong>Sito:</strong> Infografiche su tendenze, proiezioni di quando potrebbero arrivare al punto di svolta, mappe dei flussi finanziari e canali di contagio.</p>
-        <p><strong>Evoluzione futura:</strong> Un libro che raccoglie i temi della newsletter, o una drammatizzazione teatrale degli episodi.</p>
+        <p><strong>Newsletter.</strong> Articoli di approfondimento su Substack. Se la serie sceglie la chiave narrativa, questi articoli spiegano con approccio saggistico l'analisi dello scenario che ha fatto da base alla storia.</p>
+        <p><strong>Sito.</strong> Infografiche su tendenze, proiezioni di quando potrebbero arrivare al punto di svolta, mappe dei flussi finanziari e canali di contagio.</p>
+        <p><strong>Evoluzione futura.</strong> Un libro che raccoglie i temi della newsletter, o una drammatizzazione teatrale degli episodi.</p>
       </section>
-      
+
       <section id="temi">
         <h1>I temi della formula saggistica</h1>
         <p>Se si scegliesse la formula saggistica, questi sono gli incroci di tendenze identificati che, sommandosi, possono portare a criticità sistemica:</p>
-        
+
         <ul class="theme-list">
           <li><strong>1. Investimenti e ricavi dell'IA</strong> Gli investimenti infrastrutturali nel calcolo per l'IA stanno surclassando la crescita dei ricavi stimati per ripagarli. Una quota significativa è alimentata dai free cash flow degli stessi produttori dell'hardware.</li>
-          
           <li><strong>2. Credito e beni sottostanti</strong> I prestiti per i data center sono garantiti dall'infrastruttura stessa e dai contratti clienti. Se il valore scende o la solidità vacilla, vacilla anche il credito.</li>
-          
           <li><strong>3. Credito privato e shadow banking</strong> Fondi e veicoli che prestano senza regole bancarie sono diventati primari per finanziare data center e imprese non quotate. Fondi pensione e assicurazioni investono crescenti quote di risparmio inseguendo rendimenti più alti: in una crisi, l'illiquidità si scarica sui risparmiatori.</li>
-          
           <li><strong>4. Fabbisogno energetico</strong> Cresce più in fretta della capacità delle reti elettriche.</li>
-          
           <li><strong>5. Edge computing</strong> Lo spostamento del calcolo dai grandi centri ai dispositivi locali mette in discussione i piani di rientro degli investimenti.</li>
-          
           <li><strong>6. Previdenza fragile</strong> Dipende sempre più dai listini e da credito privato difficile da liquidare, mentre la demografia restringe la base di chi versa contributi.</li>
-          
-          <li><strong>7. Vincoli di bilancio centrale</strong> Il costo crescente del debito pubblico riduce i margini d'azione tra inflazione e credito. Il denaro giapponese a costo quasi zero, che per decenni ha alimentato i mercati, si sta esaurendo.</li>
-          
+          <li><strong>7. Vincoli di bilancio centrale</strong> Il costo crescente del debito pubblico riduce i margini d'azione tra inflazione e credito. Il denaro giapponese a costo quasi zero si sta esaurendo.</li>
           <li><strong>8. Digitalizzazione della moneta</strong> Stablecoin private garantite da titoli di Stato negli USA, euro digitale in Europa, mentre il calcolo quantistico minaccia la crittografia su cui si regge parte di quella moneta.</li>
-          
-          <li><strong>9. Riorganizzazione produttiva per blocchi</strong> L'aumento dei dazi e la delocalizzazione dei chip lontano da Taiwan e Corea indeboliscono lo «scudo di silicio», esponendolo a instabilità maggiore.</li>
-          
-          <li><strong>10. Chokepoints strategici</strong> Stretti marittimi (Hormuz, Malacca, Taiwan, Mar Rosso, Panama) e strozzature ad alto monopolio (litografia avanzata, terre rare dalla Cina) da cui passa il commercio e la tecnologia mondiali. Un blocco qualunque trasmette la crisi dalla finanza alle merci.</li>
-          
+          <li><strong>9. Riorganizzazione produttiva per blocchi</strong> L'aumento dei dazi e la delocalizzazione dei chip lontano da Taiwan e Corea indeboliscono lo «scudo di silicio».</li>
+          <li><strong>10. Chokepoints strategici</strong> Stretti marittimi e strozzature ad alto monopolio (litografia avanzata, terre rare) da cui passa il commercio mondiale.</li>
           <li><strong>11. Tensione fiscale interna</strong> Negli Stati federali, cresce la tensione tra territori ricchi e poveri.</li>
-          
-          <li><strong>12. Efficienza e sostenibilità</strong> L'efficienza stimola nuovi consumi che riducono l'effetto; la domanda di materiali critici fa salire i prezzi; i fondi per la transizione climatica sono i primi a essere tagliati.</li>
-          
-          <li><strong>13. Democratizzazione della forza</strong> Tecnologie di precisione low-cost e IA autonoma hanno sottratto agli Stati il monopolio della forza. Piccoli gruppi ottengono potere di ricatto strategico che frammenta i conflitti globali e impone transizione verso privatizzazione della sicurezza, infrastrutture protette e catene regionalizzate.</li>
+          <li><strong>12. Efficienza e sostenibilità</strong> L'efficienza stimola nuovi consumi; la domanda di materiali critici fa salire i prezzi; i fondi per la transizione climatica sono i primi a essere tagliati.</li>
+          <li><strong>13. Democratizzazione della forza</strong> Tecnologie di precisione low-cost e IA autonoma hanno sottratto agli Stati il monopolio della forza.</li>
         </ul>
       </section>
-      
+
       <section id="formula">
         <h1>La formula narrativa</h1>
         <p>La serie è divisa in due stagioni. Le storie, i formati e gli stili cambiano da una puntata all'altra, ma una linea comune le tiene insieme. Alcuni personaggi attraversano più puntate e le loro storie talvolta si incrociano.</p>
-        
+
         <h2>Accompagnamenti</h2>
-        <p>Ogni episodio potrebbe essere accompagnato da uno o più articoli di approfondimento in una newsletter. Se si scegliesse la chiave narrativa, questi articoli potrebbero spiegare, con approccio saggistico, l'analisi dello scenario alla base della storia, con fonti bibliografiche. Il progetto potrebbe essere corale, affidando a esperti diversi i contributi sui temi specialistici.</p>
-        
-        <p>Accanto alla newsletter, un sito potrebbe raccogliere:</p>
-        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
-          <li>Infografiche sulle tendenze di partenza</li>
-          <li>Proiezioni di quando potrebbero arrivare al punto di svolta</li>
-          <li>Mappe dei flussi finanziari e dei canali di contagio</li>
-        </ul>
-        
+        <p>Ogni episodio potrebbe essere accompagnato da uno o più articoli di approfondimento in una newsletter. Se si scegliesse la chiave narrativa, questi articoli potrebbero spiegare, con approccio saggistico, l'analisi dello scenario alla base della storia.</p>
+        <p>Accanto alla newsletter, un sito potrebbe raccogliere infografiche su tendenze, proiezioni e mappe dei flussi finanziari.</p>
+
         <h2>Contromisure ideologiche</h2>
-        <p>In ogni puntata, l'analisi si accompagna alla discussione delle ricette proposte per affrontare la crisi. Negli articoli della newsletter la discussione è esplicita. Nelle storie, le ricette compaiono come scelte compiute da personaggi e istituzioni.</p>
-        
-        <p>Le visioni si muovono lungo una linea di faglia radicale:</p>
-        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
-          <li><strong>Ritorno dello Stato:</strong> Tassare i grandi patrimoni, guidare l'innovazione dall'alto, disinnescare i debiti sovrani, rimpiazzare il PIL con nuove metriche di benessere.</li>
-          <li><strong>Accelerazione liberista:</strong> Deregolamentazione, tagli alla spesa, tecnologia senza lacci, criptovalute e mercati liberi da banche centrali.</li>
-          <li><strong>Nel mezzo:</strong> Chi immagina l'automazione come emancipazione (reddito universale, orario ridotto) e chi legge la crisi non come guasto, ma come esaurimento di un modello.</li>
-        </ul>
+        <p>In ogni puntata, l'analisi si accompagna alla discussione delle ricette proposte per affrontare la crisi. Nelle storie, le ricette compaiono come scelte compiute da personaggi e istituzioni.</p>
+        <p>Le visioni si muovono lungo una linea di faglia radicale: ritorno dello Stato (tasse su grandi patrimoni, innovazione guidata, nuove metriche di benessere); accelerazione liberista (deregolamentazione, tecnologia senza lacci, mercati liberi); nel mezzo, chi immagina l'automazione come emancipazione e chi legge la crisi come esaurimento di un modello.</p>
       </section>
-      
+
       <section id="stagione1">
         <h1>Stagione 1</h1>
         <p class="subtitle">Quattro episodi sul collasso finanziario e le sue ripercussioni sociali</p>
-        
+
         <div class="season-header">Black Sunday</div>
         <div class="episode-card">
           <div class="episode-title">Black Sunday</div>
           <div class="episode-date">Dal 25 al 30 ottobre 2029</div>
           <div class="episode-desc">
-            <p><strong>The Higher, 2003</strong></p>
-            <p>Quattro testimoni raccontano i sei giorni del crollo del Nasdaq e del fallimento del rifinanziamento di un grande fornitore di infrastrutture di calcolo. Un operatore di Tokyo, una tesoriera d'impresa, un gestore di rischi di un fondo pensione, e una quarta voce: l'obbligazione stessa in scadenza. Le loro versioni non coincidono—orari divergono, date cambiano, nomi compaiono e scompaiono. Nelle discrepanze si capisce che nessuno, in quel momento, vedeva l'intero quadro.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/1OBCfz512nXPuBJ7yL7dFm" class="song-link" target="_blank">The Higher, 2003</a></strong></p>
+            <p>Quattro testimoni raccontano i sei giorni del crollo del Nasdaq e del fallimento del rifinanziamento di un grande fornitore di infrastrutture di calcolo. Un operatore di Tokyo, una tesoriera d'impresa, un gestore di rischi di un fondo pensione, e una quarta voce: l'obbligazione stessa in scadenza.</p>
           </div>
         </div>
-        
+
         <div class="season-header">Carry That Weight</div>
         <div class="episode-card">
           <div class="episode-title">Carry That Weight</div>
           <div class="episode-date">Dal 14 febbraio al 6 marzo 2033</div>
           <div class="episode-desc">
-            <p><strong>The Beatles, 1969</strong></p>
-            <p>In un complesso residenziale per pensionati del ceto medio, una donna sparisce senza pagare le spese condominiali. L'assemblea convocata per decidere se agire contro la morosa diventa il palcoscenico del dramma: ogni vicino ha una sua ipotesi su dove sia andata, e ciascuna dice più della paura di chi la formula che della donna stessa. La crisi scopre che il fondo pensione in cui aveva investito, esposto a prestiti privati difficili da vendere, aveva sospeso i rimborsi. Così il collasso colpisce chi si credeva prudente.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/4cOdK2wGLETKBW3PvgPWqV" class="song-link" target="_blank">The Beatles, 1969</a></strong></p>
+            <p>In un complesso residenziale per pensionati del ceto medio, una donna sparisce senza pagare le spese condominiali. L'assemblea convocata per decidere se agire diventa il palcoscenico del dramma: ogni vicino ha una sua ipotesi, e ciascuna dice più della paura di chi la formula che della donna stessa.</p>
           </div>
         </div>
-        
+
         <div class="season-header">Everybody Wants to Rule the World</div>
         <div class="episode-card">
           <div class="episode-title">Everybody Wants to Rule the World</div>
           <div class="episode-date">Lunedì 21 febbraio 2033</div>
           <div class="episode-desc">
-            <p><strong>Tears for Fears, 1985</strong></p>
-            <p>Una commissione parlamentare d'inchiesta ascolta la contabile che aveva disegnato lo schema di ammortamento allungando la vita dei server oltre la loro durata reale. Le domande dei commissari, ciascuno con la propria agenda, la costringono a ripercorrere come quel valore era stato costruito e poi smontato. Il suo racconto pubblico si alterna con ciò che ricorda davvero. La tensione sta nello scarto tra le due versioni, e nella domanda che nessun commissario sembra capace di fare.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/7qiZfU4dY1lkzZwVRNPZVG" class="song-link" target="_blank">Tears for Fears, 1985</a></strong></p>
+            <p>Una commissione parlamentare d'inchiesta ascolta la contabile che aveva disegnato lo schema di ammortamento allungando la vita dei server. Le domande dei commissari la costringono a ripercorrere come quel valore era stato costruito e poi smontato.</p>
           </div>
         </div>
-        
+
         <div class="season-header">Money's Too Tight (To Mention)</div>
         <div class="episode-card">
           <div class="episode-title">Money's Too Tight (To Mention)</div>
           <div class="episode-date">Lunedì 22 settembre 2031</div>
           <div class="episode-desc">
-            <p><strong>The Valentine Brothers, 1982</strong></p>
-            <p>Davanti a una banca c'è un negozio di numismatica. La radio scandisce la giornata: il primo annuncio è che un calcolatore quantistico è in grado di violare la crittografia delle criptovalute. Le successive raccontano il crollo, la corsa agli sportelli digitali, i controlli sui capitali. L'ultima racconta la rapina in corso dall'altra parte della strada: un cliente che non può ritirare i propri risparmi è entrato in banca con una pistola finta. Una commedia grottesca sul momento in cui la moneta smette di essere ciò che crediamo.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/0RrUPJ9TXB6Q8f8dJOK5MX" class="song-link" target="_blank">The Valentine Brothers, 1982</a></strong></p>
+            <p>Davanti a una banca c'è un negozio di numismatica. La radio scandisce la giornata: il primo annuncio è che un calcolatore quantistico è in grado di violare la crittografia. Una commedia grottesca sul momento in cui la moneta smette di essere ciò che crediamo.</p>
           </div>
         </div>
       </section>
-      
+
       <section id="stagione2">
         <h1>Stagione 2</h1>
         <p class="subtitle">Quattro episodi sulla riorganizzazione della società e il nuovo assetto</p>
-        
+
         <div class="season-header">Subcity</div>
         <div class="episode-card">
           <div class="episode-title">Subcity</div>
           <div class="episode-date">2033</div>
           <div class="episode-desc">
-            <p><strong>Tracy Chapman, 1989</strong></p>
-            <p>La seduta finale della giuria di un premio letterario nazionale. Ogni giurato legge la relazione sul libro che sostiene: è una recensione ad alta voce, e la sala la discute. Il libro è un romanzo su un'isola del silicio che per anni è stata indispensabile al mondo e poi non lo è più. In giuria siedono un editore della regione più ricca, una bibliotecaria di una provincia povera la cui biblioteca ha chiuso, e la traduttrice che ha portato il romanzo dall'isola. Ogni giurato legge nell'isola quello che vuole—il suo territorio, quello che si credeva indispensabile o quello che è stato lasciato indietro. Il voto sul libro diventa, senza che nessuno lo dica, un voto sul paese.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/1O3yJTRf9K4bB7mHMw3Lwq" class="song-link" target="_blank">Tracy Chapman, 1989</a></strong></p>
+            <p>La seduta finale della giuria di un premio letterario nazionale. Ogni giurato legge la relazione sul libro che sostiene. Il libro è un romanzo su un'isola del silicio che per anni è stata indispensabile al mondo.</p>
           </div>
         </div>
-        
+
         <div class="season-header">Allentown</div>
         <div class="episode-card">
           <div class="episode-title">Allentown</div>
           <div class="episode-date">Giovedì 14 aprile 2039</div>
           <div class="episode-desc">
-            <p><strong>Billy Joel, 1982</strong></p>
-            <p>Un'inchiesta giornalistica di cinque anni sulla nascita di una nuova figura sociale: tecnici itineranti che tengono in vita macchinari che le fabbriche non possono più sostituire. Viaggiano da un distretto all'altro, si scambiano pezzi di ricambio e trucchi, si fanno pagare in contanti o con promesse di lavoro futuro. Costruiscono una rete di fiducia che il mercato ufficiale non offre più. Uno di loro guida il racconto: ha imparato il mestiere in una fabbrica che non esiste più, e ora è l'unico che sa far ripartire le macchine di mezza provincia.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/17Cs4n8TADAKdcJkn4dUQq" class="song-link" target="_blank">Billy Joel, 1982</a></strong></p>
+            <p>Un'inchiesta giornalistica di cinque anni sulla nascita di una nuova figura sociale: tecnici itineranti che tengono in vita macchinari che le fabbriche non possono più sostituire. Costruiscono una rete di fiducia che il mercato ufficiale non offre più.</p>
           </div>
         </div>
-        
+
         <div class="season-header">Mercy Mercy Me (The Ecology)</div>
         <div class="episode-card">
           <div class="episode-title">Mercy Mercy Me (The Ecology)</div>
           <div class="episode-date">Estate 2038</div>
           <div class="episode-desc">
-            <p><strong>Marvin Gaye, 1971</strong></p>
-            <p>Il narratore è un atomo di carbonio che racconta il suo viaggio attraverso l'era industriale fino all'estate di caldo eccezionale del 2038, quando le reti già razionate non reggono più. Attraversa fabbriche e motori fino alla sala in cui un governo decide di tagliare i fondi per la transizione per tornare al pareggio di bilancio. L'atomo è nell'aria che i ministri respirano in una stanza con l'aria condizionata spenta per il razionamento, e assiste alla decisione che rimetterà in recessione un'economia che sembrava ripartita.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/0lk3F9U6GI5CQy8VgL8DT2" class="song-link" target="_blank">Marvin Gaye, 1971</a></strong></p>
+            <p>Il narratore è un atomo di carbonio che racconta il suo viaggio attraverso l'era industriale fino all'estate di caldo eccezionale del 2038. Assiste alla decisione di un governo di tagliare i fondi per la transizione.</p>
           </div>
         </div>
-        
+
         <div class="season-header">The Wild Boys</div>
         <div class="episode-card">
           <div class="episode-title">The Wild Boys</div>
           <div class="episode-date">Dal 2039 al 2041</div>
           <div class="episode-desc">
-            <p><strong>Duran Duran, 1984</strong></p>
-            <p>Un manuale in forma di podcast: «Come sopravvivere alla guerra dei droni». Il primo capitolo insegna a riconoscere uno sciame, il secondo a proteggere la rete elettrica del quartiere, il terzo come pagare quando i circuiti digitali sono fuori uso—il sabotaggio dei sistemi di pagamento è diventato estorsione. Ogni capitolo è interrotto dalla presentazione entusiasta di un nuovo prodotto di difesa. Le promozioni raccontano l'altra faccia della storia: gli stessi chip dei data center guidano gli sciami, i capitali inseguono la difesa, le fabbriche si riconvertono tornando ad assumere. La piena occupazione torna, ma con l'economia di guerra.</p>
+            <p><strong><a href="https://open.spotify.com/intl-it/track/4cOdK2wGLETKBW3PvgPWpk" class="song-link" target="_blank">Duran Duran, 1984</a></strong></p>
+            <p>Un manuale in forma di podcast: «Come sopravvivere alla guerra dei droni». Ogni capitolo è interrotto dalla presentazione entusiasta di un nuovo prodotto di difesa. La piena occupazione torna, ma con l'economia di guerra.</p>
           </div>
         </div>
       </section>
-      
+
       <section id="finanziamento">
         <h1>Come si potrebbe finanziare</h1>
         <p>Le strade sono diverse e potrebbero combinarsi:</p>
-        
+
         <div class="financing-item">
           <strong>Produttori e editori</strong>
           <p>Case di produzione di podcast, editori e piattaforme di ascolto a pagamento possono finanziare o acquistare la serie. Attualmente sto partecipando alla New Media Academy di Chora Media con un progetto affine.</p>
         </div>
-        
+
         <div class="financing-item">
           <strong>Sponsorizzazione</strong>
-          <p>Un'impresa, fondazione o istituzione. Il committente ideale è interessato a pensiero critico su finanza, tecnologia e sostenibilità: Banca Etica e il suo gruppo (Fondazione Finanza Etica), Fondazione Giangiacomo Feltrinelli, Giannino Bassetti, Forum Disuguaglianze e Diversità.</p>
+          <p>Un'impresa, fondazione o istituzione interessata a pensiero critico su finanza, tecnologia e sostenibilità: Banca Etica, Fondazione Finanza Etica, Fondazione Giangiacomo Feltrinelli, Giannino Bassetti, Forum Disuguaglianze e Diversità.</p>
         </div>
-        
+
         <div class="financing-item">
           <strong>Bandi</strong>
           <p>Programmi europei per i media, bandi di fondazioni, fondi universitari per la divulgazione.</p>
         </div>
-        
+
         <div class="financing-item">
           <strong>Pubblicità e piattaforme</strong>
           <p>Spazi pubblicitari e programmi di ripartizione dei ricavi.</p>
         </div>
-        
+
         <div class="financing-item">
           <strong>Sostegno diretto</strong>
           <p>Abbonamenti per contenuti aggiuntivi e campagne di raccolta fondi fra gli ascoltatori.</p>
         </div>
       </section>
-      
+
       <section id="calendario">
-        <h1>Calendario storico: i paralleli con il 1929</h1>
-        <p>Ogni data della serie corrisponde, a cento anni di distanza, a un momento della Grande Depressione. Negli episodi il parallelo non viene dichiarato: resta sotto la superficie, per chi lo vuole riconoscere.</p>
-        
+        <h1>Calendario storico</h1>
+        <p>Ogni data della serie corrisponde, a cento anni di distanza, a un momento della Grande Depressione. Negli episodi il parallelo non viene dichiarato: resta sotto la superficie.</p>
+
         <div class="table-wrapper">
           <table>
             <thead>
@@ -401,65 +549,134 @@
                 <th>Episodio</th>
                 <th>Data nella serie</th>
                 <th>Data storica</th>
-                <th>Che cosa accadde</th>
+                <th>Evento</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Black Sunday</strong></td>
-                <td>25-30 ottobre 2029</td>
-                <td>24-29 ottobre 1929</td>
-                <td>Il 24 ottobre si scambiano 12,9 milioni di azioni; il Dow Jones chiude in calo del 2,09%. Lunedì 28 perde il 12,82%. Martedì 29 si scambiano 16,4 milioni di azioni e perde un altro 11,73%.</td>
+                <td>25–30 ott 2029</td>
+                <td>24–29 ott 1929</td>
+                <td>Crollo di Wall Street. Dow Jones perde 12,82% il 28 e 11,73% il 29.</td>
               </tr>
               <tr>
                 <td><strong>Carry That Weight</strong></td>
-                <td>14 feb - 6 mar 2033</td>
-                <td>14 feb - 6 mar 1933</td>
-                <td>Il 14 febbraio il Michigan chiude le banche per otto giorni. Il 6 marzo Roosevelt chiude tutte le banche per quattro giorni.</td>
+                <td>14 feb – 6 mar 2033</td>
+                <td>14 feb – 6 mar 1933</td>
+                <td>Chiusure bancarie. Michigan il 14 feb; Roosevelt il 6 marzo.</td>
               </tr>
               <tr>
                 <td><strong>Everybody Wants to Rule</strong></td>
-                <td>21 febbraio 2033</td>
-                <td>Febbraio 1933</td>
-                <td>La commissione Pecora del Senato espone le pratiche delle grandi banche. Ne nascono la legge Glass-Steagall e le leggi del 1933 e 1934 sui titoli.</td>
+                <td>21 feb 2033</td>
+                <td>Feb 1933</td>
+                <td>Commissione Pecora. Nascono Glass-Steagall e leggi sui titoli.</td>
               </tr>
               <tr>
                 <td><strong>Money's Too Tight</strong></td>
-                <td>22 settembre 2031</td>
-                <td>19-21 settembre 1931</td>
-                <td>Sotto gli attacchi alla sterlina, la Banca d'Inghilterra abbandona il gold standard il 19 settembre.</td>
+                <td>22 set 2031</td>
+                <td>19–21 set 1931</td>
+                <td>Gran Bretagna abbandona gold standard.</td>
               </tr>
               <tr>
                 <td><strong>Subcity</strong></td>
                 <td>2033</td>
                 <td>1933</td>
-                <td>Il commercio mondiale è sceso a un terzo del livello di quattro anni prima.</td>
+                <td>Commercio mondiale a un terzo del livello di 1929.</td>
               </tr>
               <tr>
                 <td><strong>Allentown</strong></td>
-                <td>14 aprile 2039</td>
-                <td>14 aprile 1939</td>
-                <td>Esce «Furore» di John Steinbeck, quattro anni dopo la tempesta di sabbia del 14 aprile 1935.</td>
+                <td>14 apr 2039</td>
+                <td>14 apr 1939</td>
+                <td>Esce «Furore» di John Steinbeck, 4 anni dopo tempesta sabbia.</td>
               </tr>
               <tr>
                 <td><strong>Mercy Mercy Me</strong></td>
                 <td>Estate 2038</td>
-                <td>1937-1938</td>
-                <td>Nella primavera del 1937 i parametri tornano ai livelli del 1929. Poi i tagli e la stretta riportano la recessione: la produzione industriale cade di quasi il 30%.</td>
+                <td>1937–1938</td>
+                <td>Primavera 1937 parametri tornano a 1929; tagli riportano recessione.</td>
               </tr>
               <tr>
                 <td><strong>The Wild Boys</strong></td>
-                <td>2039-2041</td>
-                <td>1939-1942</td>
-                <td>La guerra scoppiata nel 1939 chiude la depressione. Negli USA la disoccupazione scende sotto il 5% solo da maggio 1942.</td>
+                <td>2039–2041</td>
+                <td>1939–1942</td>
+                <td>Guerra 1939 chiude depressione; disoccupazione sotto 5% da maggio 1942.</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
+
+      <section id="bibliografia">
+        <h1>Bibliografia</h1>
+        <p>Elenco delle fonti verificate per la ricerca del progetto.</p>
+
+        <div class="bibliography-section">
+          <h3>Documenti di imprese e istituzioni</h3>
+          <div class="bib-item"><strong>NVIDIA</strong>, «OpenAI and NVIDIA Announce Strategic Partnership to Deploy 10 Gigawatts of NVIDIA Systems», comunicato, 22/09/2025. <a href="https://investor.nvidia.com/news/press-release-details/2025/OpenAI-and-NVIDIA-Announce-Strategic-Partnership-to-Deploy-10-Gigawatts-of-NVIDIA-Systems/default.aspx" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>CoreWeave</strong>, «CoreWeave Closes Landmark $8.5 Billion Financing Facility», allegato SEC, 31/03/2026. <a href="https://www.sec.gov/Archives/edgar/data/1769628/000176962826000129/ex991.htm" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>International Energy Agency</strong>, «Energy and AI», executive summary, 2025. <a href="https://www.iea.org/reports/energy-and-ai/executive-summary" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>IBM</strong>, «Large-scale fault-tolerant quantum computing» (Starling, 2029). <a href="https://www.ibm.com/quantum/blog/large-scale-ftqc" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>U.S. Bureau of Labor Statistics</strong>, Monthly Labor Review 2018, figura 1: tasso di disoccupazione dal 1940. <a href="https://www.bls.gov/opub/mlr/2018/images/data/haugen-figure1.stm" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>UNCTAD</strong>, «UNCTAD urges reforms on global debt architecture amid rising distress», 07/02/2024. <a href="https://unctad.org/news/unctad-urges-reforms-global-debt-architecture-amid-rising-distress" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>Yale Budget Lab</strong>, «State of U.S. Tariffs: April 8, 2026». <a href="https://budgetlab.yale.edu/research/state-us-tariffs-april-8-2026" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>Harvard Kennedy School</strong>, Dani Rodrik, «An Industrial Policy for Good Jobs», 2019. <a href="https://www.hks.harvard.edu/centers/mrcbg/programs/growthpolicy/industrial-policy-good-jobs" class="bib-link" target="_blank">Link</a></div>
+        </div>
+
+        <div class="bibliography-section">
+          <h3>Stampa e analisi</h3>
+          <div class="bib-item"><strong>DatacenterDynamics</strong>, «Nvidia to purchase unsold compute capacity from CoreWeave for $6.3bn», 15/09/2025. <a href="https://www.datacenterdynamics.com/en/news/nvidia-to-purchase-unsold-compute-capacity-from-coreweave-for-63bn/" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>Economy.ac</strong>, articolo sulla Banca del Giappone e il carry trade, 16/06/2026. <a href="https://economy.ac/news/2026/06/202606289342" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>CoinDesk</strong>, «Japan's central bank cools rate hike expectations», 14/04/2026. <a href="https://www.coindesk.com/markets/2026/04/14/japan-s-central-bank-cools-rate-hike-expectations-removing-a-key-risk-for-bitcoin-s-rally" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>Asia News Network</strong>, TSMC in Giappone, Stati Uniti e Germania, 08/01/2025. <a href="https://asianews.network/?p=183528" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>The Korea Herald</strong>, SK hynix e la produzione di memorie negli Stati Uniti, 27/09/2026. <a href="https://www.koreaherald.com/article/10885260" class="bib-link" target="_blank">Link</a></div>
+          <div class="bib-item"><strong>L'Orient-Le Jour</strong>, «Two years on, Sali Hafez's bank-heist fame still sparks controversy», 14/09/2024. <a href="https://today.lorientlejour.com/article/1425786/two-years-on-sali-hafezs-bank-heist-fame-still-sparks-controversy.html" class="bib-link" target="_blank">Link</a></div>
+        </div>
+
+        <div class="bibliography-section">
+          <h3>Contromisure e autori</h3>
+          <div class="bib-item"><strong>Piketty</strong>, «Il capitale nel XXI secolo», 2013.</div>
+          <div class="bib-item"><strong>Acemoglu e Johnson</strong>, «Power and Progress», 2023.</div>
+          <div class="bib-item"><strong>Mazzucato</strong>, «Lo Stato innovatore», 2013; «Missione economia», 2021.</div>
+          <div class="bib-item"><strong>Raworth</strong>, «L'economia della ciambella», 2017.</div>
+          <div class="bib-item"><strong>Hickel</strong>, «Less Is More», 2021.</div>
+          <div class="bib-item"><strong>Kallis e altri</strong>, «Degrowth: A Vocabulary for a New Era», 2015.</div>
+          <div class="bib-item"><strong>Commissione Stiglitz-Sen-Fitoussi</strong>, rapporto finale, 2009.</div>
+          <div class="bib-item"><strong>Reinhart e Rogoff</strong>, «This Time Is Different», 2009.</div>
+          <div class="bib-item"><strong>Rogoff</strong>, «Our Dollar, Your Problem», 2025.</div>
+          <div class="bib-item"><strong>Varoufakis</strong>, «Technofeudalism», 2023.</div>
+          <div class="bib-item"><strong>Fisher</strong>, «Realismo capitalista», 2009.</div>
+          <div class="bib-item"><strong>Harvey</strong>, «The New Imperialism», 2003.</div>
+          <div class="bib-item"><strong>Badiou</strong>, «L'ipotesi comunista», 2009.</div>
+          <div class="bib-item"><strong>Karatani</strong>, «The Structure of World History», 2010.</div>
+          <div class="bib-item"><strong>Ammous</strong>, «The Bitcoin Standard», 2018.</div>
+          <div class="bib-item"><strong>Srnicek e Williams</strong>, «Inventing the Future», 2015.</div>
+        </div>
+
+        <div class="bibliography-section">
+          <h3>Modelli narrativi</h3>
+          <div class="bib-item"><strong>Shriver</strong>, «The Mandibles», 2016 (modello negativo).</div>
+          <div class="bib-item"><strong>Brooks</strong>, «World War Z», 2006.</div>
+          <div class="bib-item"><strong>Aleksievič</strong>, «Tempo di seconda mano», 2013.</div>
+          <div class="bib-item"><strong>García Márquez</strong>, «Cronaca di una morte annunciata», 1981.</div>
+          <div class="bib-item"><strong>Levi</strong>, «Il sistema periodico», 1975.</div>
+          <div class="bib-item"><strong>Calvino</strong>, «Le cosmicomiche», 1965.</div>
+          <div class="bib-item"><strong>Robinson</strong>, «The Ministry for the Future», 2020.</div>
+          <div class="bib-item"><strong>Lem</strong>, «Vuoto perfetto», 1971; «L'invincibile», 1964.</div>
+          <div class="bib-item"><strong>Hamid</strong>, «Come diventare ricchi sfondati nell'Asia emergente», 2013.</div>
+          <div class="bib-item"><strong>Gibson</strong>, «The Peripheral», 2014.</div>
+          <div class="bib-item"><strong>Galbraith</strong>, «Il grande crollo», 1955.</div>
+          <div class="bib-item"><strong>Massini</strong>, «Lehman Trilogy», 2013.</div>
+          <div class="bib-item"><strong>Goldstein</strong>, «Janesville», 2017.</div>
+          <div class="bib-item"><strong>Bruder</strong>, «Nomadland», 2017.</div>
+          <div class="bib-item"><strong>Fallada</strong>, «Lupo tra i lupi», 1937.</div>
+          <div class="bib-item"><strong>Remarque</strong>, «L'obelisco nero», 1956.</div>
+          <div class="bib-item"><strong>Adichie</strong>, «Metà di un sole giallo», 2006.</div>
+          <div class="bib-item"><strong>Bacigalupi</strong>, «La ragazza meccanica», 2009.</div>
+        </div>
+      </section>
     </main>
   </div>
-  
+
   <script>
     document.querySelectorAll('.nav-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -473,4 +690,4 @@
     });
   </script>
 </body>
-        </html>
+          </html>
