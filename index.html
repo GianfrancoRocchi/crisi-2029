@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10/28. La crisi sistemica del 2029</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { font-family: 'Inter', sans-serif; background: #f8f7f4; color: #2c2c2a; line-height: 1.6; }
+    
+    .container { display: flex; min-height: 100vh; }
+    
+    nav { 
+      width: 220px; 
+      background: #fff; 
+      border-right: 1px solid #e5e3dc; 
+      padding: 2rem 0; 
+      position: sticky; 
+      top: 0; 
+      height: 100vh; 
+      overflow-y: auto;
+    }
+    
+    nav h1 { 
+      font-size: 14px; 
+      font-weight: 600; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      padding: 0 1.5rem 1.5rem; 
+      color: #888780; 
+    }
+    
+    nav button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.875rem 1.5rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      color: #5f5e5a;
+      transition: all 0.2s;
+    }
+    
+    nav button:hover { background: #f1f0eb; color: #2c2c2a; }
+    nav button.active { background: #f1f0eb; color: #185fa5; font-weight: 500; border-left: 3px solid #185fa5; padding-left: calc(1.5rem - 3px); }
+    
+    main { 
+      flex: 1; 
+      padding: 3rem; 
+      overflow-y: auto; 
+      max-width: 1000px;
+    }
+    
+    section { display: none; }
+    section.active { display: block; }
+    
+    h1 { font-size: 32px; margin-bottom: 1rem; color: #2c2c2a; }
+    h2 { font-size: 22px; margin-top: 2.5rem; margin-bottom: 1rem; color: #2c2c2a; }
+    h3 { font-size: 18px; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #2c2c2a; font-weight: 500; }
+    p { margin-bottom: 1rem; color: #5f5e5a; }
+    
+    .subtitle { font-size: 18px; color: #888780; margin-bottom: 2rem; }
+    
+    .episode-card {
+      background: #fff;
+      border-left: 4px solid #185fa5;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    
+    .episode-title { 
+      font-size: 16px; 
+      font-weight: 600; 
+      color: #185fa5; 
+      margin-bottom: 0.5rem;
+    }
+    
+    .episode-date {
+      font-size: 13px;
+      color: #888780;
+      margin-bottom: 1rem;
+    }
+    
+    .episode-desc { color: #5f5e5a; }
+    
+    .theme-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .theme-list li {
+      padding: 1.25rem;
+      margin: 0.75rem 0;
+      background: #f1f0eb;
+      border-left: 3px solid #639922;
+      border-radius: 2px;
+    }
+    
+    .theme-list strong { color: #2c2c2a; display: block; margin-bottom: 0.5rem; }
+    
+    .financing-item {
+      background: #f1f0eb;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+      border-left: 3px solid #a32d2d;
+    }
+    
+    .financing-item strong { color: #2c2c2a; display: block; margin-bottom: 0.5rem; }
+    
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #fff;
+    }
+    
+    th {
+      background: #f1f0eb;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid #e5e3dc;
+    }
+    
+    td {
+      padding: 0.875rem 1rem;
+      border-bottom: 1px solid #e5e3dc;
+    }
+    
+    tr:hover { background: #faf9f6; }
+    
+    .intro-box {
+      background: #f1f0eb;
+      padding: 2rem;
+      border-radius: 4px;
+      margin: 2rem 0;
+      border-left: 4px solid #185fa5;
+    }
+    
+    .season-header {
+      font-size: 20px;
+      font-weight: 600;
+      color: #185fa5;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #e5e3dc; padding: 1rem 0; }
+      nav h1 { padding: 0 1rem 1rem; }
+      nav button { padding: 0.75rem 1rem; }
+      main { padding: 1.5rem; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <h1>Sezioni</h1>
+      <button class="nav-btn active" data-section="intro">Introduzione</button>
+      <button class="nav-btn" data-section="progetto">Il progetto</button>
+      <button class="nav-btn" data-section="temi">Temi principali</button>
+      <button class="nav-btn" data-section="formula">Formula narrativa</button>
+      <button class="nav-btn" data-section="stagione1">Stagione 1</button>
+      <button class="nav-btn" data-section="stagione2">Stagione 2</button>
+      <button class="nav-btn" data-section="finanziamento">Finanziamento</button>
+      <button class="nav-btn" data-section="calendario">Calendario storico</button>
+    </nav>
+    
+    <main>
+      <section id="intro" class="active">
+        <h1>10/28. La crisi sistemica del 2029</h1>
+        <p class="subtitle">Un podcast in due stagioni su scenari di fragilità sistemica e le scelte che stiamo facendo</p>
+        
+        <div class="intro-box">
+          <h3>Il concetto centrale</h3>
+          <p>Giovedì 25 ottobre 2029, il Nasdaq crolla. A domenica 28 ottobre, un grande fornitore di infrastrutture di calcolo non riesce a rifinanziare le obbligazioni. Scattano i credit default swap. Da lì parte una crisi sistemica che ripercorre, a cento anni di distanza con le stesse date, gli eventi della Grande Depressione del 1929.</p>
+          <p>Ma nulla di questo è finzione: tutte le premesse che portano a questo scenario descrivono scelte già compiute e tendenze già in atto. «10/28» traccia il punto di rottura, ponendo una questione ineludibile: può una società garantire la propria sopravvivenza delegando la sicurezza collettiva alla crescita infinita dei mercati?</p>
+        </div>
+        
+        <h2>Due formule possibili</h2>
+        <p><strong>Saggistica e divulgazione:</strong> Un approccio analitico e previsionale che discute scenari e fatti già riscontrabili oggi, con un taglio più riflettente. La conduzione affidata a una voce professionalmente autorevole.</p>
+        <p><strong>Narrativa:</strong> Storie di personaggi reali e immaginari dentro ecosistemi che collassano. La fantaeconomia, la parodia e la distopia mascherano le istituzioni protagoniste di oggi, lasciando libertà speculativa. Conduzione attoriale.</p>
+        <p>Il rigore starebbe in entrambi i casi nella solidità delle tendenze di partenza e nella plausibilità dei passaggi che le collegano.</p>
+      </section>
+      
+      <section id="progetto">
+        <h1>Il progetto</h1>
+        <p>Negli ultimi mesi ho letto rapporti di istituzioni, analisi, articoli e opinioni su diversi fenomeni che stanno scuotendo il mondo. Mi interessa esplorare il modo in cui le fragilità del presente possono rafforzarsi a vicenda, e contribuire al dibattito sulle conseguenze delle scelte che stiamo facendo.</p>
+        <p>Il podcast è un formato particolarmente adatto: colloca tra l'approfondimento e la divulgazione.</p>
+        
+        <h2>Formato della serie</h2>
+        <p>La serie è divisa in due stagioni. Gli stili cambiano da un episodio all'altro, ma una linea comune li tiene insieme. Alcuni personaggi attraversano più puntate e le loro storie talvolta si incrociano.</p>
+        <p>Ogni episodio dura 25-40 minuti, a seconda della formula scelta. Ciascuno si apre con una canzone che evoca il tema e gli dà il titolo.</p>
+        
+        <h2>Ecosistema multicanale</h2>
+        <p><strong>Newsletter:</strong> Articoli di approfondimento su Substack. Se la serie sceglie la chiave narrativa, questi articoli spiegano con approccio saggistico l'analisi dello scenario che ha fatto da base alla storia.</p>
+        <p><strong>Sito:</strong> Infografiche su tendenze, proiezioni di quando potrebbero arrivare al punto di svolta, mappe dei flussi finanziari e canali di contagio.</p>
+        <p><strong>Evoluzione futura:</strong> Un libro che raccoglie i temi della newsletter, o una drammatizzazione teatrale degli episodi.</p>
+      </section>
+      
+      <section id="temi">
+        <h1>I temi della formula saggistica</h1>
+        <p>Se si scegliesse la formula saggistica, questi sono gli incroci di tendenze identificati che, sommandosi, possono portare a criticità sistemica:</p>
+        
+        <ul class="theme-list">
+          <li><strong>1. Investimenti e ricavi dell'IA</strong> Gli investimenti infrastrutturali nel calcolo per l'IA stanno surclassando la crescita dei ricavi stimati per ripagarli. Una quota significativa è alimentata dai free cash flow degli stessi produttori dell'hardware.</li>
+          
+          <li><strong>2. Credito e beni sottostanti</strong> I prestiti per i data center sono garantiti dall'infrastruttura stessa e dai contratti clienti. Se il valore scende o la solidità vacilla, vacilla anche il credito.</li>
+          
+          <li><strong>3. Credito privato e shadow banking</strong> Fondi e veicoli che prestano senza regole bancarie sono diventati primari per finanziare data center e imprese non quotate. Fondi pensione e assicurazioni investono crescenti quote di risparmio inseguendo rendimenti più alti: in una crisi, l'illiquidità si scarica sui risparmiatori.</li>
+          
+          <li><strong>4. Fabbisogno energetico</strong> Cresce più in fretta della capacità delle reti elettriche.</li>
+          
+          <li><strong>5. Edge computing</strong> Lo spostamento del calcolo dai grandi centri ai dispositivi locali mette in discussione i piani di rientro degli investimenti.</li>
+          
+          <li><strong>6. Previdenza fragile</strong> Dipende sempre più dai listini e da credito privato difficile da liquidare, mentre la demografia restringe la base di chi versa contributi.</li>
+          
+          <li><strong>7. Vincoli di bilancio centrale</strong> Il costo crescente del debito pubblico riduce i margini d'azione tra inflazione e credito. Il denaro giapponese a costo quasi zero, che per decenni ha alimentato i mercati, si sta esaurendo.</li>
+          
+          <li><strong>8. Digitalizzazione della moneta</strong> Stablecoin private garantite da titoli di Stato negli USA, euro digitale in Europa, mentre il calcolo quantistico minaccia la crittografia su cui si regge parte di quella moneta.</li>
+          
+          <li><strong>9. Riorganizzazione produttiva per blocchi</strong> L'aumento dei dazi e la delocalizzazione dei chip lontano da Taiwan e Corea indeboliscono lo «scudo di silicio», esponendolo a instabilità maggiore.</li>
+          
+          <li><strong>10. Chokepoints strategici</strong> Stretti marittimi (Hormuz, Malacca, Taiwan, Mar Rosso, Panama) e strozzature ad alto monopolio (litografia avanzata, terre rare dalla Cina) da cui passa il commercio e la tecnologia mondiali. Un blocco qualunque trasmette la crisi dalla finanza alle merci.</li>
+          
+          <li><strong>11. Tensione fiscale interna</strong> Negli Stati federali, cresce la tensione tra territori ricchi e poveri.</li>
+          
+          <li><strong>12. Efficienza e sostenibilità</strong> L'efficienza stimola nuovi consumi che riducono l'effetto; la domanda di materiali critici fa salire i prezzi; i fondi per la transizione climatica sono i primi a essere tagliati.</li>
+          
+          <li><strong>13. Democratizzazione della forza</strong> Tecnologie di precisione low-cost e IA autonoma hanno sottratto agli Stati il monopolio della forza. Piccoli gruppi ottengono potere di ricatto strategico che frammenta i conflitti globali e impone transizione verso privatizzazione della sicurezza, infrastrutture protette e catene regionalizzate.</li>
+        </ul>
+      </section>
+      
+      <section id="formula">
+        <h1>La formula narrativa</h1>
+        <p>La serie è divisa in due stagioni. Le storie, i formati e gli stili cambiano da una puntata all'altra, ma una linea comune le tiene insieme. Alcuni personaggi attraversano più puntate e le loro storie talvolta si incrociano.</p>
+        
+        <h2>Accompagnamenti</h2>
+        <p>Ogni episodio potrebbe essere accompagnato da uno o più articoli di approfondimento in una newsletter. Se si scegliesse la chiave narrativa, questi articoli potrebbero spiegare, con approccio saggistico, l'analisi dello scenario alla base della storia, con fonti bibliografiche. Il progetto potrebbe essere corale, affidando a esperti diversi i contributi sui temi specialistici.</p>
+        
+        <p>Accanto alla newsletter, un sito potrebbe raccogliere:</p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+          <li>Infografiche sulle tendenze di partenza</li>
+          <li>Proiezioni di quando potrebbero arrivare al punto di svolta</li>
+          <li>Mappe dei flussi finanziari e dei canali di contagio</li>
+        </ul>
+        
+        <h2>Contromisure ideologiche</h2>
+        <p>In ogni puntata, l'analisi si accompagna alla discussione delle ricette proposte per affrontare la crisi. Negli articoli della newsletter la discussione è esplicita. Nelle storie, le ricette compaiono come scelte compiute da personaggi e istituzioni.</p>
+        
+        <p>Le visioni si muovono lungo una linea di faglia radicale:</p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+          <li><strong>Ritorno dello Stato:</strong> Tassare i grandi patrimoni, guidare l'innovazione dall'alto, disinnescare i debiti sovrani, rimpiazzare il PIL con nuove metriche di benessere.</li>
+          <li><strong>Accelerazione liberista:</strong> Deregolamentazione, tagli alla spesa, tecnologia senza lacci, criptovalute e mercati liberi da banche centrali.</li>
+          <li><strong>Nel mezzo:</strong> Chi immagina l'automazione come emancipazione (reddito universale, orario ridotto) e chi legge la crisi non come guasto, ma come esaurimento di un modello.</li>
+        </ul>
+      </section>
+      
+      <section id="stagione1">
+        <h1>Stagione 1</h1>
+        <p class="subtitle">Quattro episodi sul collasso finanziario e le sue ripercussioni sociali</p>
+        
+        <div class="season-header">Black Sunday</div>
+        <div class="episode-card">
+          <div class="episode-title">Black Sunday</div>
+          <div class="episode-date">Dal 25 al 30 ottobre 2029</div>
+          <div class="episode-desc">
+            <p><strong>The Higher, 2003</strong></p>
+            <p>Quattro testimoni raccontano i sei giorni del crollo del Nasdaq e del fallimento del rifinanziamento di un grande fornitore di infrastrutture di calcolo. Un operatore di Tokyo, una tesoriera d'impresa, un gestore di rischi di un fondo pensione, e una quarta voce: l'obbligazione stessa in scadenza. Le loro versioni non coincidono—orari divergono, date cambiano, nomi compaiono e scompaiono. Nelle discrepanze si capisce che nessuno, in quel momento, vedeva l'intero quadro.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">Carry That Weight</div>
+        <div class="episode-card">
+          <div class="episode-title">Carry That Weight</div>
+          <div class="episode-date">Dal 14 febbraio al 6 marzo 2033</div>
+          <div class="episode-desc">
+            <p><strong>The Beatles, 1969</strong></p>
+            <p>In un complesso residenziale per pensionati del ceto medio, una donna sparisce senza pagare le spese condominiali. L'assemblea convocata per decidere se agire contro la morosa diventa il palcoscenico del dramma: ogni vicino ha una sua ipotesi su dove sia andata, e ciascuna dice più della paura di chi la formula che della donna stessa. La crisi scopre che il fondo pensione in cui aveva investito, esposto a prestiti privati difficili da vendere, aveva sospeso i rimborsi. Così il collasso colpisce chi si credeva prudente.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">Everybody Wants to Rule the World</div>
+        <div class="episode-card">
+          <div class="episode-title">Everybody Wants to Rule the World</div>
+          <div class="episode-date">Lunedì 21 febbraio 2033</div>
+          <div class="episode-desc">
+            <p><strong>Tears for Fears, 1985</strong></p>
+            <p>Una commissione parlamentare d'inchiesta ascolta la contabile che aveva disegnato lo schema di ammortamento allungando la vita dei server oltre la loro durata reale. Le domande dei commissari, ciascuno con la propria agenda, la costringono a ripercorrere come quel valore era stato costruito e poi smontato. Il suo racconto pubblico si alterna con ciò che ricorda davvero. La tensione sta nello scarto tra le due versioni, e nella domanda che nessun commissario sembra capace di fare.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">Money's Too Tight (To Mention)</div>
+        <div class="episode-card">
+          <div class="episode-title">Money's Too Tight (To Mention)</div>
+          <div class="episode-date">Lunedì 22 settembre 2031</div>
+          <div class="episode-desc">
+            <p><strong>The Valentine Brothers, 1982</strong></p>
+            <p>Davanti a una banca c'è un negozio di numismatica. La radio scandisce la giornata: il primo annuncio è che un calcolatore quantistico è in grado di violare la crittografia delle criptovalute. Le successive raccontano il crollo, la corsa agli sportelli digitali, i controlli sui capitali. L'ultima racconta la rapina in corso dall'altra parte della strada: un cliente che non può ritirare i propri risparmi è entrato in banca con una pistola finta. Una commedia grottesca sul momento in cui la moneta smette di essere ciò che crediamo.</p>
+          </div>
+        </div>
+      </section>
+      
+      <section id="stagione2">
+        <h1>Stagione 2</h1>
+        <p class="subtitle">Quattro episodi sulla riorganizzazione della società e il nuovo assetto</p>
+        
+        <div class="season-header">Subcity</div>
+        <div class="episode-card">
+          <div class="episode-title">Subcity</div>
+          <div class="episode-date">2033</div>
+          <div class="episode-desc">
+            <p><strong>Tracy Chapman, 1989</strong></p>
+            <p>La seduta finale della giuria di un premio letterario nazionale. Ogni giurato legge la relazione sul libro che sostiene: è una recensione ad alta voce, e la sala la discute. Il libro è un romanzo su un'isola del silicio che per anni è stata indispensabile al mondo e poi non lo è più. In giuria siedono un editore della regione più ricca, una bibliotecaria di una provincia povera la cui biblioteca ha chiuso, e la traduttrice che ha portato il romanzo dall'isola. Ogni giurato legge nell'isola quello che vuole—il suo territorio, quello che si credeva indispensabile o quello che è stato lasciato indietro. Il voto sul libro diventa, senza che nessuno lo dica, un voto sul paese.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">Allentown</div>
+        <div class="episode-card">
+          <div class="episode-title">Allentown</div>
+          <div class="episode-date">Giovedì 14 aprile 2039</div>
+          <div class="episode-desc">
+            <p><strong>Billy Joel, 1982</strong></p>
+            <p>Un'inchiesta giornalistica di cinque anni sulla nascita di una nuova figura sociale: tecnici itineranti che tengono in vita macchinari che le fabbriche non possono più sostituire. Viaggiano da un distretto all'altro, si scambiano pezzi di ricambio e trucchi, si fanno pagare in contanti o con promesse di lavoro futuro. Costruiscono una rete di fiducia che il mercato ufficiale non offre più. Uno di loro guida il racconto: ha imparato il mestiere in una fabbrica che non esiste più, e ora è l'unico che sa far ripartire le macchine di mezza provincia.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">Mercy Mercy Me (The Ecology)</div>
+        <div class="episode-card">
+          <div class="episode-title">Mercy Mercy Me (The Ecology)</div>
+          <div class="episode-date">Estate 2038</div>
+          <div class="episode-desc">
+            <p><strong>Marvin Gaye, 1971</strong></p>
+            <p>Il narratore è un atomo di carbonio che racconta il suo viaggio attraverso l'era industriale fino all'estate di caldo eccezionale del 2038, quando le reti già razionate non reggono più. Attraversa fabbriche e motori fino alla sala in cui un governo decide di tagliare i fondi per la transizione per tornare al pareggio di bilancio. L'atomo è nell'aria che i ministri respirano in una stanza con l'aria condizionata spenta per il razionamento, e assiste alla decisione che rimetterà in recessione un'economia che sembrava ripartita.</p>
+          </div>
+        </div>
+        
+        <div class="season-header">The Wild Boys</div>
+        <div class="episode-card">
+          <div class="episode-title">The Wild Boys</div>
+          <div class="episode-date">Dal 2039 al 2041</div>
+          <div class="episode-desc">
+            <p><strong>Duran Duran, 1984</strong></p>
+            <p>Un manuale in forma di podcast: «Come sopravvivere alla guerra dei droni». Il primo capitolo insegna a riconoscere uno sciame, il secondo a proteggere la rete elettrica del quartiere, il terzo come pagare quando i circuiti digitali sono fuori uso—il sabotaggio dei sistemi di pagamento è diventato estorsione. Ogni capitolo è interrotto dalla presentazione entusiasta di un nuovo prodotto di difesa. Le promozioni raccontano l'altra faccia della storia: gli stessi chip dei data center guidano gli sciami, i capitali inseguono la difesa, le fabbriche si riconvertono tornando ad assumere. La piena occupazione torna, ma con l'economia di guerra.</p>
+          </div>
+        </div>
+      </section>
+      
+      <section id="finanziamento">
+        <h1>Come si potrebbe finanziare</h1>
+        <p>Le strade sono diverse e potrebbero combinarsi:</p>
+        
+        <div class="financing-item">
+          <strong>Produttori e editori</strong>
+          <p>Case di produzione di podcast, editori e piattaforme di ascolto a pagamento possono finanziare o acquistare la serie. Attualmente sto partecipando alla New Media Academy di Chora Media con un progetto affine.</p>
+        </div>
+        
+        <div class="financing-item">
+          <strong>Sponsorizzazione</strong>
+          <p>Un'impresa, fondazione o istituzione. Il committente ideale è interessato a pensiero critico su finanza, tecnologia e sostenibilità: Banca Etica e il suo gruppo (Fondazione Finanza Etica), Fondazione Giangiacomo Feltrinelli, Giannino Bassetti, Forum Disuguaglianze e Diversità.</p>
+        </div>
+        
+        <div class="financing-item">
+          <strong>Bandi</strong>
+          <p>Programmi europei per i media, bandi di fondazioni, fondi universitari per la divulgazione.</p>
+        </div>
+        
+        <div class="financing-item">
+          <strong>Pubblicità e piattaforme</strong>
+          <p>Spazi pubblicitari e programmi di ripartizione dei ricavi.</p>
+        </div>
+        
+        <div class="financing-item">
+          <strong>Sostegno diretto</strong>
+          <p>Abbonamenti per contenuti aggiuntivi e campagne di raccolta fondi fra gli ascoltatori.</p>
+        </div>
+      </section>
+      
+      <section id="calendario">
+        <h1>Calendario storico: i paralleli con il 1929</h1>
+        <p>Ogni data della serie corrisponde, a cento anni di distanza, a un momento della Grande Depressione. Negli episodi il parallelo non viene dichiarato: resta sotto la superficie, per chi lo vuole riconoscere.</p>
+        
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Episodio</th>
+                <th>Data nella serie</th>
+                <th>Data storica</th>
+                <th>Che cosa accadde</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Black Sunday</strong></td>
+                <td>25-30 ottobre 2029</td>
+                <td>24-29 ottobre 1929</td>
+                <td>Il 24 ottobre si scambiano 12,9 milioni di azioni; il Dow Jones chiude in calo del 2,09%. Lunedì 28 perde il 12,82%. Martedì 29 si scambiano 16,4 milioni di azioni e perde un altro 11,73%.</td>
+              </tr>
+              <tr>
+                <td><strong>Carry That Weight</strong></td>
+                <td>14 feb - 6 mar 2033</td>
+                <td>14 feb - 6 mar 1933</td>
+                <td>Il 14 febbraio il Michigan chiude le banche per otto giorni. Il 6 marzo Roosevelt chiude tutte le banche per quattro giorni.</td>
+              </tr>
+              <tr>
+                <td><strong>Everybody Wants to Rule</strong></td>
+                <td>21 febbraio 2033</td>
+                <td>Febbraio 1933</td>
+                <td>La commissione Pecora del Senato espone le pratiche delle grandi banche. Ne nascono la legge Glass-Steagall e le leggi del 1933 e 1934 sui titoli.</td>
+              </tr>
+              <tr>
+                <td><strong>Money's Too Tight</strong></td>
+                <td>22 settembre 2031</td>
+                <td>19-21 settembre 1931</td>
+                <td>Sotto gli attacchi alla sterlina, la Banca d'Inghilterra abbandona il gold standard il 19 settembre.</td>
+              </tr>
+              <tr>
+                <td><strong>Subcity</strong></td>
+                <td>2033</td>
+                <td>1933</td>
+                <td>Il commercio mondiale è sceso a un terzo del livello di quattro anni prima.</td>
+              </tr>
+              <tr>
+                <td><strong>Allentown</strong></td>
+                <td>14 aprile 2039</td>
+                <td>14 aprile 1939</td>
+                <td>Esce «Furore» di John Steinbeck, quattro anni dopo la tempesta di sabbia del 14 aprile 1935.</td>
+              </tr>
+              <tr>
+                <td><strong>Mercy Mercy Me</strong></td>
+                <td>Estate 2038</td>
+                <td>1937-1938</td>
+                <td>Nella primavera del 1937 i parametri tornano ai livelli del 1929. Poi i tagli e la stretta riportano la recessione: la produzione industriale cade di quasi il 30%.</td>
+              </tr>
+              <tr>
+                <td><strong>The Wild Boys</strong></td>
+                <td>2039-2041</td>
+                <td>1939-1942</td>
+                <td>La guerra scoppiata nel 1939 chiude la depressione. Negli USA la disoccupazione scende sotto il 5% solo da maggio 1942.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <script>
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = btn.getAttribute('data-section');
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(section).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.scrollTo(0, 0);
+      });
+    });
+  </script>
+</body>
+        </html>
