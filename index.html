@@ -361,4 +361,32 @@ a.tag:hover{border-color:var(--text-secondary)}
     if (view && el !== view) {
       el.scrollIntoView();
       window.scrollBy(0, -80);
-    } e
+    } else {
+      window.scrollTo(0, 0);
+      if (view && focus) {
+        var h = view.querySelector('h1');
+        if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+      }
+    }
+  }
+  function fromHash(focus) {
+    var id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+    show(id, focus);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    e.preventDefault();
+    var id = a.getAttribute('href').slice(1);
+    try { location.hash = id; } catch (err) {}
+    show(id, true);
+  });
+  window.addEventListener('hashchange', function () { fromHash(true); });
+  window.addEventListener('popstate', function () { fromHash(true); });
+  fromHash(false);
+})();
+
+</script>
+</body>
+</html>
